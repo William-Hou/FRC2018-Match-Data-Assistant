@@ -1,14 +1,12 @@
 import requests
 import json
 
-authkey = {"X-TBA-Auth-Key" : "KuyisSfG5mADtkhd2h0ebKbiCtE40vqwN5fX6voJq8i4IYr9STai3PpqLHT1z3kR"}
+from handlers import *
+
 TEAM = 2521
+team_key = "frc" + str(TEAM)
 
-team_key = "frc"+str(TEAM)
-
-matches_request = requests.get("http://www.thebluealliance.com/api/v3/team/{}/matches/2018".format(team_key), params = authkey)
-
-matches = matches_request.json()
+matches = match_request_handler(team_key)
 
 def alliance_color(matchkey, team=team_key):
     for match in matches:
