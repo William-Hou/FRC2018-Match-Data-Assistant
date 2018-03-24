@@ -14,9 +14,5 @@ def match_exists(matches, matchkey, team_key):
                 return False
     return True
     
+# def sort_by_highest(data):
     
-# def exclude_playoffs(matches, team_key)
-#     for match in matches:
-#         if 'qm' in match
-        
-                

@@ -1,6 +1,8 @@
+from collections import OrderedDict
 from handlers import *
 from utils import *
 
+# Average scale/switch ownership for robot's alliance
 def average_teleop_ownership(team_key, structure, exclude_playoffs):
     matches = match_request_handler(team_key)
     structure = structure.title()
@@ -15,3 +17,13 @@ def average_teleop_ownership(team_key, structure, exclude_playoffs):
                     print("That's not a valid game structure!")
                     quit()
     return round(sum(total)/len(total),2)
+    
+# Average scale/switch ownership for all the teams at an event
+def average_teleop_ownership_eventleaderboard(event, structure):
+    event = event_request_handler(event)
+    leaderboard = {}
+    for team in event:
+        leaderboard[team["nickname"]] = average_teleop_ownership("frc" + str(team["team_number"]), structure, True)
+    leaderboard = sorted(leaderboard.items(), key=lambda x: x[1], reverse=True)
+    return leaderboard
+
