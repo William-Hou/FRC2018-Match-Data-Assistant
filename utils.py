@@ -13,4 +13,10 @@ def match_exists(matches, matchkey, team_key):
             if match["score_breakdown"] is None:
                 return False
     return True
+    
+    
+# def exclude_playoffs(matches, team_key)
+#     for match in matches:
+#         if 'qm' in match
+        
                 
