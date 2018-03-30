@@ -26,4 +26,6 @@ def average_teleop_ownership_eventleaderboard(event, structure):
         leaderboard[team["nickname"]] = average_teleop_ownership("frc" + str(team["team_number"]), structure, True)
     leaderboard = sorted(leaderboard.items(), key=lambda x: x[1], reverse=True)
     return leaderboard
+    
+    
 
