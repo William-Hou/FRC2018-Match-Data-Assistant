@@ -32,3 +32,19 @@ def average_teleop_ownership_eventleaderboard(event, structure, byname=False):
             leaderboard = OrderedDict(sorted(leaderboard.items()))
     return leaderboard
 
+# How often a team's robot climbs
+def average_climb(team_key):
+    matches = match_request_handler(team_key)
+    climb_statuses = []
+    for match in matches:
+        robot_position = match["alliances"][alliance_color(matches,match["key"],team_key)]["team_keys"].index(team_key) + 1
+        climb_statuses.append(match["score_breakdown"][alliance_color(matches,match["key"],team_key)]["endgameRobot{}".format(robot_position)])
+    return round(climb_statuses.count("Climbing")/len(climb_statuses) * 100, 2)
+
+# Returns the climb percentage of all the robots at an event
+def get_event_climbs(event):
+    team_climbs = {}
+    events = event_request_handler(event)
+    for team in events:
+        team_climbs[team["team_number"]] = average_climb(team["key"])
+    return OrderedDict(sorted(team_climbs.items()))
