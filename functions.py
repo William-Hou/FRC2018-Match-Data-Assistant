@@ -19,13 +19,16 @@ def average_teleop_ownership(team_key, structure, exclude_playoffs):
     return round(sum(total)/len(total),2)
     
 # Average scale/switch ownership for all the teams at an event
-def average_teleop_ownership_eventleaderboard(event, structure):
+def average_teleop_ownership_eventleaderboard(event, structure, byname=False):
     event = event_request_handler(event)
     leaderboard = {}
-    for team in event:
-        leaderboard[team["nickname"]] = average_teleop_ownership("frc" + str(team["team_number"]), structure, True)
-    leaderboard = sorted(leaderboard.items(), key=lambda x: x[1], reverse=True)
+    if not byname:
+        for team in event:
+            leaderboard[team["nickname"]] = average_teleop_ownership("frc" + str(team["team_number"]), structure, True)
+        leaderboard = sorted(leaderboard.items(), key=lambda x: x[1], reverse=True)
+    else:
+        for team in event:
+            leaderboard[team["team_number"]] = average_teleop_ownership("frc" + str(team["team_number"]), structure, True)
+            leaderboard = OrderedDict(sorted(leaderboard.items()))
     return leaderboard
-    
-    
 
